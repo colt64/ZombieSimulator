@@ -1,27 +1,21 @@
-name: Build LÖVE2D APK
-
-on:
-  push:
-    branches: [ main ]
-  workflow_dispatch:
-
-jobs:
-  build-apk:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Build APK
-        uses: love-build/love-build@v1
-        with:
-          love_version: "11.4"
-          platforms: android
-          main_file: .
-          output_name: ZombieIdle
-
-      - name: Upload APK artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ZombieIdle-android
-          path: dist/android/*.apk
+- name: Build love android
+  id: build-love
+  uses: love-actions/love-actions-android@v2
+  with:
+    app-name: "My Love Game"
+    bundle-id: "org.love2d.my_game"
+    resource-path: "./assets/android/res"
+    icon-specifier: "@mipmap/app"
+    love-ref: "11.5"
+    love-patch: "./love.patch"
+    love-package: "./game.love"
+    libs-path: "./assets/android/libs"
+    extra-assets: ./README.md ./license.txt
+    product-name: "my-game"
+    version-string: "2.3.4"
+    version-code: 234
+    output-folder: "./dist"
+    keystore-alias: ${{ secrets.ANDROID_KEYSTORE_ALIAS }}
+    keystore-base64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+    keystore-key-password: ${{ secrets.ANDROID_KEYSTORE_KEYPASSWORD }}
+    keystore-store-password: ${{ secrets.ANDROID_KEYSTORE_STOREPASSWORD }}
