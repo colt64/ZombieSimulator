@@ -1,0 +1,39 @@
+name: Build LÖVE2D APK
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build love android
+        id: build-love
+        uses: love-actions/love-actions-android@v2
+        with:
+          app-name: "Zambies!"
+          bundle-id: "org.love2d.zambies"
+          resource-path: "./assets/android/res"
+          icon-specifier: "@mipmap/app"
+          love-ref: "11.5"
+          libs-path: "./assets/android/libs"
+          extra-assets: ./README.md ./license.txt
+          product-name: "zambies!"
+          version-string: "2.3.4"
+          version-code: 234
+          output-folder: "./dist"
+          keystore-alias: ${{ secrets.ANDROID_KEYSTORE_ALIAS }}
+          keystore-base64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          keystore-key-password: ${{ secrets.ANDROID_KEYSTORE_KEYPASSWORD }}
+          keystore-store-password: ${{ secrets.ANDROID_KEYSTORE_STOREPASSWORD }}
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Zambies-android
+          path: dist/*.apk
