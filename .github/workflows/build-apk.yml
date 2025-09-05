@@ -2,8 +2,8 @@
   id: build-love
   uses: love-actions/love-actions-android@v2
   with:
-    app-name: "My Love Game"
-    bundle-id: "org.love2d.my_game"
+    app-name: "Zambies!"
+    bundle-id: "org.love2d.zambies"
     resource-path: "./assets/android/res"
     icon-specifier: "@mipmap/app"
     love-ref: "11.5"
@@ -11,7 +11,7 @@
     love-package: "./game.love"
     libs-path: "./assets/android/libs"
     extra-assets: ./README.md ./license.txt
-    product-name: "my-game"
+    product-name: "zambies!"
     version-string: "2.3.4"
     version-code: 234
     output-folder: "./dist"
