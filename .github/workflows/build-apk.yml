@@ -18,10 +18,8 @@ jobs:
         with:
           app-name: "Zambies!"
           bundle-id: "org.love2d.zambies"
-          resource-path: "./assets/android/res"
           icon-specifier: "@mipmap/app"
           love-ref: "11.5"
-          libs-path: "./assets/android/libs"
           extra-assets: ./README.md ./license.txt
           product-name: "zambies!"
           version-string: "2.3.4"
