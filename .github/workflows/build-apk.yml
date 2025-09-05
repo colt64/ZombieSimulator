@@ -1,0 +1,27 @@
+name: Build LÖVE2D APK
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build APK
+        uses: love-build/love-build@v1
+        with:
+          love_version: "11.4"
+          platforms: android
+          main_file: .
+          output_name: ZombieIdle
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ZombieIdle-android
+          path: dist/android/*.apk
